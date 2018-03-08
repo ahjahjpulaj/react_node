@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import checkAuth from './components/checkAuth/CheckAuth';
+import AuthService from './services/AuthService';
 import './App.css';
+
+const Auth = new AuthService();
 
 class App extends Component {
   render() {
-    return (
+    return(
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+          <div className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <h2>Welcome </h2> {/*{this.props.user.username}*/}
+          </div>
+          <p className="App-intro">
+              <button type="button" className="form-submit" onClick={this.handleLogout.bind(this)}>Logout</button>
+          </p>
+          </div>
+    )
   }
+
+  handleLogout(){
+    Auth.logout()
+    this.props.history.replace('/login');
+  }
+
 }
 
-export default App;
+
+export default checkAuth(App);

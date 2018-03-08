@@ -12,8 +12,10 @@
     "express": "^4.15.5",
     "express-jwt": "^5.3.0",
     "jsonwebtoken": "^8.2.0",
+    "mongodb": "^3.0.4",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
     "serve-favicon": "~2.4.5"
-  }
+  },
+  "proxy": "localhost:8080"
 }
