@@ -1,7 +1,6 @@
 import React from 'react';
-import './Login.css';
+import './Registration.css';
 import AuthService from '../../services/AuthService';
-import { Link } from 'react-router-dom'
 
 class Login extends React.Component {
     constructor(){
@@ -14,8 +13,22 @@ class Login extends React.Component {
         return (
             <div className="center">
                 <div className="card">
-                    <h1>Login</h1>
+                    <h1>Registration</h1>
                     <form onSubmit={this.handleFormSubmit}>
+                        <input
+                            className="form-item"
+                            placeholder="Name goes here..."
+                            name="name"
+                            type="text"
+                            onChange={this.handleChange}
+                        />
+                        <input
+                            className="form-item"
+                            placeholder="Surname goes here..."
+                            name="surname"
+                            type="text"
+                            onChange={this.handleChange}
+                        />
                         <input
                             className="form-item"
                             placeholder="Username goes here..."
@@ -32,13 +45,10 @@ class Login extends React.Component {
                         />
                         <input
                             className="form-submit"
-                            value="SUBMIT"
+                            value="REGISTER"
                             type="submit"
                         />
                     </form>
-                    <div className="register-container">
-                        <Link to="/register" className="register-button">Register</Link>
-                    </div>
                 </div>
             </div>
         );
