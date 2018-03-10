@@ -1,13 +1,12 @@
 import React from 'react';
-import './Registration.css';
-import AuthService from '../../services/AuthService';
+// import AuthService from '../../services/AuthService';
 
 class Login extends React.Component {
     constructor(){
         super();
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.Auth = new AuthService();
+        // this.Auth = new AuthService();
     }
     render() {
         return (

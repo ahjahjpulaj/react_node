@@ -51,12 +51,15 @@ let users = [
 
 // LOGIN ROUTE
 app.post('/login', (req, res) => {
+    console.log(req.body);
   const { username, password } = req.body;
   // Use your DB ORM logic here to find user and compare password
   
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("nodeapp");
+    console.log(username);
+    console.log(password);
     dbo.collection("users").find({username: username, password: password}).toArray(function(err, result) {
       if (err) throw err;
       console.log(result);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import checkAuth from './components/checkAuth/CheckAuth';
-import AuthService from './services/AuthService';
+import checkAuth from './hoc/CheckAuth';
+// import AuthService from './services/AuthService';
 import './App.css';
 
-const Auth = new AuthService();
+// const Auth = new AuthService();
 
 class App extends Component {
   render() {
@@ -22,11 +22,11 @@ class App extends Component {
   }
 
   handleLogout(){
-    Auth.logout()
+    // Auth.logout()
     this.props.history.replace('/login');
   }
 
 }
 
 
-export default checkAuth(App);
+export default App;
