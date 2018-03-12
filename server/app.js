@@ -69,6 +69,7 @@ app.post('/login', (req, res) => {
           res.json({
               sucess: true,
               err: null,
+              user: { id: user.id, username: user.username},
               token
           });
       }else {

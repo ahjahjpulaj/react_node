@@ -1,4 +1,6 @@
-import { API_URL } from '../config';
+// import { API_URL } from '../config';
+
+import api from '../libs/api';
 
 //actions types
 
@@ -26,13 +28,10 @@ export function authError(CONST, error) {
 
 /**
  * Login
- */
+
 
 export function login(username, password) {
-    console.log(JSON.stringify({
-        username,
-        password
-    }));
+
     return function (dispatch) {
         return fetch( API_URL +'/login', {
             method: 'POST',
@@ -53,6 +52,24 @@ export function login(username, password) {
         .catch(() => dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right")));
     }
   }
+ */
+  export function login({username, password}, history){
+    // async
+    return async function (dispatch) {
+        const response = await api.login({
+            username,
+            password
+        });
+        if (response){
+            console.log(response);
+            localStorage.setItem('user', response.token);
+            history.push('/');
+            dispatch({ type: AUTH_USER });
+        } else{
+            dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right"));
+        }
+    }
+}
 
 /**
  * Sign out

@@ -27,10 +27,9 @@ import './index.css';
 
 const store = configureStore();
 
-const user = JSON.parse(localStorage.getItem('user'));
+const tokenUser = (localStorage.getItem('user'));
 
-if (user && user.token) {
-    console.log("here");
+if (tokenUser) {
   store.dispatch({ type: AUTH_USER });
 }
 ReactDOM.render(

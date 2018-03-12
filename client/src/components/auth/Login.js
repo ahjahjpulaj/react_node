@@ -1,6 +1,6 @@
 import React from 'react';
 // import AuthService from z'../../services/AuthService';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { 
@@ -9,6 +9,7 @@ import {
 import { 
     handleInputChange
 } from '../../actions/helpers';
+
 
 class Login extends React.Component {
     constructor(props){
@@ -19,37 +20,42 @@ class Login extends React.Component {
     }
     render() {
         console.log(this.props)
-        return (
-            <div className="center">
-                <div className="card">
-                    <h1>Login</h1>
-                    <form onSubmit={this.handleFormSubmit}>
-                        <input
-                            className="form-item"
-                            placeholder="Username goes here..."
-                            name="username"
-                            type="text"
-                            onChange={(e)=>this.handleChange(e)}
-                        />
-                        <input
-                            className="form-item"
-                            placeholder="Password goes here..."
-                            name="password"
-                            type="password"
-                            onChange={(e)=>this.handleChange(e)}
-                        />
-                        <input
-                            className="form-submit"
-                            value="SUBMIT"
-                            type="submit"
-                        />
-                    </form>
-                    <div className="register-container">
-                        <Link to="/register" className="register-button">Register</Link>
+        if(this.props.authenticated){
+            return <Redirect to='/'/>;
+        }
+        else{
+            return (
+                <div className="center">
+                    <div className="card">
+                        <h1>Login</h1>
+                        <form onSubmit={this.handleFormSubmit}>
+                            <input
+                                className="form-item"
+                                placeholder="Username goes here..."
+                                name="username"
+                                type="text"
+                                onChange={(e)=>this.handleChange(e)}
+                            />
+                            <input
+                                className="form-item"
+                                placeholder="Password goes here..."
+                                name="password"
+                                type="password"
+                                onChange={(e)=>this.handleChange(e)}
+                            />
+                            <input
+                                className="form-submit"
+                                value="SUBMIT"
+                                type="submit"
+                            />
+                        </form>
+                        <div className="register-container">
+                            <Link to="/register" className="register-button">Register</Link>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 
     handleChange(e){
@@ -58,15 +64,7 @@ class Login extends React.Component {
 
     handleFormSubmit(e){
         e.preventDefault();
-        this.props.login(this.props.username, this.props.password);
-        // this.Auth.login(this.state.username,this.state.password)
-        //     .then(res =>{
-        //         console.log(res);
-        //        this.props.history.replace('/');
-        //     })
-        //     .catch(err =>{
-        //         alert(err);
-        //     })
+        this.props.login({username : this.props.username ,password: this.props.password}, this.props.history);
     }
 
     componentWillMount(){
@@ -79,6 +77,8 @@ class Login extends React.Component {
 const mapStateToProps = (state) => ({
     username: state.helper.username,
     password: state.helper.password,
+    authenticated: state.auth.authenticated,
+    errorMessage: state.auth.error,
   });
   
   

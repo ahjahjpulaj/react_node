@@ -31,7 +31,7 @@
 
 .center{
     font-family: 'Raleway', sans-serif;
-    background-color: #1abc9c;
+    background-color: #36465d;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -66,11 +66,20 @@
     border: 1px solid grey;
 }
 
+.form-item-error{
+    font-family: 'Raleway', sans-serif;
+    padding: 5px;
+    margin-bottom: 2rem;
+    height: 30px;
+    width: 16rem;
+    border: 1px solid red;
+}
+
 .form-submit{
     font-family: 'Raleway', sans-serif;
     height: 35px;
     color: #fff;
-    background-color: #1abc9c;
+    background-color: #2f3d51;
     border: none;
     letter-spacing: 0.2rem;
     transition: 0.3s opacity ease;
@@ -83,8 +92,7 @@
 .register-button{
     font-family: 'Raleway', sans-serif;
     height: 35px;
-    color: #fff;
-    background-color: #1abc9c;
+    color: #2f3d51;
     border: none;
     letter-spacing: 0.2rem;
     transition: 0.3s opacity ease;

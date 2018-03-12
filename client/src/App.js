@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { 
+  logout
+} from './actions/auth';
+
 import logo from './logo.svg';
-import checkAuth from './hoc/CheckAuth';
-// import AuthService from './services/AuthService';
+
 import './App.css';
 
-// const Auth = new AuthService();
 
 class App extends Component {
   render() {
@@ -22,11 +27,21 @@ class App extends Component {
   }
 
   handleLogout(){
-    // Auth.logout()
+    this.props.logout();
     this.props.history.replace('/login');
   }
 
 }
 
 
-export default App;
+const mapStateToProps = (state) => ({
+
+});
+
+
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  logout
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
