@@ -16,10 +16,12 @@ class Login extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.state = {};
         // this.Auth = () => new AuthService();
     }
     render() {
-        console.log(this.props)
+        let {email, password} = this.state;
+        // console.log(this.props)
         if(this.props.authenticated){
             return <Redirect to='/'/>;
         }
@@ -59,12 +61,13 @@ class Login extends React.Component {
     }
 
     handleChange(e){
-        this.props.handleInputChange(e.target.name, e.target.value);
+        // this.props.handleInputChange(e.target.name, e.target.value);
+        this.setState({ [e.target.name] : e.target.value })
     }
 
     handleFormSubmit(e){
         e.preventDefault();
-        this.props.login({username : this.props.username ,password: this.props.password}, this.props.history);
+        this.props.login({username : this.state.username ,password: this.state.password}, this.props.history);
     }
 
     componentWillMount(){
@@ -75,8 +78,8 @@ class Login extends React.Component {
 
 
 const mapStateToProps = (state) => ({
-    username: state.helper.username,
-    password: state.helper.password,
+    // username: state.helper.username,
+    // password: state.helper.password,
     authenticated: state.auth.authenticated,
     errorMessage: state.auth.error,
   });
@@ -84,7 +87,7 @@ const mapStateToProps = (state) => ({
   
   
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    handleInputChange,
+    // handleInputChange,
     login,
 }, dispatch);
   

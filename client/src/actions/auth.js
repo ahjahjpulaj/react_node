@@ -26,46 +26,24 @@ export function authError(CONST, error) {
     };
 }
 
-/**
- * Login
 
-
-export function login(username, password) {
-
-    return function (dispatch) {
-        return fetch( API_URL +'/login', {
-            method: 'POST',
-            body: JSON.stringify({
-                username,
-                password
-            })
-        }).then(res => {
-            if(res.status===200){
-                console.log(res)
-                localStorage.setItem('user', JSON.stringify(res.data));
-                dispatch({ type: AUTH_USER });
-              //   browserHistory.push('/');
-            }else{
-                dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right"));
-            }
-        })
-        .catch(() => dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right")));
-    }
-  }
- */
   export function login({username, password}, history){
     // async
     return async function (dispatch) {
-        const response = await api.login({
-            username,
-            password
-        });
-        if (response){
+        try {
+            const response = await api.login({
+                username,
+                password
+            });
             console.log(response);
-            localStorage.setItem('user', response.token);
-            history.push('/');
-            dispatch({ type: AUTH_USER });
-        } else{
+            if (response){
+                localStorage.setItem('user', response.token);
+                history.push('/');
+                dispatch({ type: AUTH_USER });
+            } else{
+                dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right"));
+            }
+        }catch(err){
             dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right"));
         }
     }
@@ -82,19 +60,3 @@ export function login(username, password) {
         }
     }
 
-  /*
-  login(username, password) {
-    console.log("login");
-    // Get a token from api server using the fetch api
-    return this.fetch(`${this.domain}/login`, {
-        method: 'POST',
-        body: JSON.stringify({
-            username,
-            password
-        })
-    }).then(res => {
-        this.setToken(res.token) // Setting the token in localStorage
-        return Promise.resolve(res);
-    })
-}
-*/
