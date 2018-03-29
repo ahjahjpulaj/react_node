@@ -1,15 +1,13 @@
 import React from 'react';
-// import AuthService from z'../../services/AuthService';
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { 
     login
 } from '../../actions/auth';
-import { 
-    handleInputChange
-} from '../../actions/helpers';
 
+import InputGroup from '../main/InputGroup';
+import logo from '../../logo.png';
 
 class Login extends React.Component {
     constructor(props){
@@ -17,51 +15,44 @@ class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.state = {};
-        // this.Auth = () => new AuthService();
     }
     render() {
-        let {email, password} = this.state;
-        // console.log(this.props)
-        if(this.props.authenticated){
-            return <Redirect to='/'/>;
-        }
-        else{
-            return (
-                <div className="center">
-                    <div className="card">
-                        <h1>Login</h1>
-                        <form onSubmit={this.handleFormSubmit}>
-                            <input
-                                className="form-item"
-                                placeholder="Username goes here..."
-                                name="username"
-                                type="text"
-                                onChange={(e)=>this.handleChange(e)}
-                            />
-                            <input
-                                className="form-item"
-                                placeholder="Password goes here..."
-                                name="password"
-                                type="password"
-                                onChange={(e)=>this.handleChange(e)}
-                            />
-                            <input
-                                className="form-submit"
-                                value="SUBMIT"
-                                type="submit"
-                            />
-                        </form>
-                        <div className="register-container">
-                            <Link to="/register" className="register-button">Register</Link>
-                        </div>
+        return (
+            <div className="center">
+                <div className="login-form-card">
+                    <div>
+                        <img src={logo} alt="ahjahjPulaj" />
+                    </div>
+                    <form onSubmit={this.handleFormSubmit}>
+                        <InputGroup 
+                            fieldname = {'username'} 
+                            placeholder = { 'Username' } 
+                            type = { 'text' }
+                            onChange = {(e)=>this.handleChange(e)} 
+                            onBlur = { ()=> {} } 
+                            validate = {false} 
+                            error = {""}
+                        />
+                        <InputGroup 
+                            fieldname = {'password'} 
+                            placeholder = { 'Password' } 
+                            type = { 'password' }
+                            onChange = {(e) => this.handleChange(e)} 
+                            onBlur = { ()=> {} } 
+                            validate = {false} 
+                            error = {""}
+                        />
+                        <button type="submit"  className="btn form-submit">Log In</button>
+                    </form>
+                    <div className="register-container">
+                        <Link to="/register" className="register-button">Register</Link>
                     </div>
                 </div>
-            );
-        }
+            </div>
+        );
     }
 
     handleChange(e){
-        // this.props.handleInputChange(e.target.name, e.target.value);
         this.setState({ [e.target.name] : e.target.value })
     }
 
@@ -69,17 +60,10 @@ class Login extends React.Component {
         e.preventDefault();
         this.props.login({username : this.state.username ,password: this.state.password}, this.props.history);
     }
-
-    componentWillMount(){
-        // if(this.Auth.loggedIn())
-        //     this.props.history.replace('/');
-    }
 }
 
 
 const mapStateToProps = (state) => ({
-    // username: state.helper.username,
-    // password: state.helper.password,
     authenticated: state.auth.authenticated,
     errorMessage: state.auth.error,
   });
@@ -87,7 +71,6 @@ const mapStateToProps = (state) => ({
   
   
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    // handleInputChange,
     login,
 }, dispatch);
   

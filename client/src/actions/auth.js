@@ -1,5 +1,3 @@
-// import { API_URL } from '../config';
-
 import api from '../libs/api';
 
 //actions types
@@ -7,6 +5,8 @@ import api from '../libs/api';
 export const AUTH_USER = 'AUTH_USER';
 export const UNAUTH_USER = 'UNAUTH_USER';
 export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
+export const REGISTERED_USER = 'REGISTERED_USER';
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 //actions Creators
 
@@ -28,18 +28,16 @@ export function authError(CONST, error) {
 
 
   export function login({username, password}, history){
-    // async
     return async function (dispatch) {
         try {
             const response = await api.login({
                 username,
                 password
             });
-            console.log(response);
-            if (response){
+            if (response.status === 200){
+                dispatch({ type: AUTH_USER, data: response.user, history : '/'});
                 localStorage.setItem('user', response.token);
                 history.push('/');
-                dispatch({ type: AUTH_USER });
             } else{
                 dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right"));
             }
@@ -57,6 +55,33 @@ export function authError(CONST, error) {
     
         return {
         type: UNAUTH_USER,
+        }
+    }
+/**
+ *  Register
+ */
+    export function register({email, username, password, firstname, lastname}, history){
+        // async
+        return async function (dispatch) {
+            try {
+                const response = await api.register({
+                    email,
+                    username,
+                    password,
+                    firstname, 
+                    lastname
+                });
+                console.log(response);
+                if (response.status === 200){
+                    history.push('/login');
+                    dispatch({ type: REGISTERED_USER });
+                } else{
+                    dispatch(authError(SIGNUP_FAILURE, response.err));
+                }
+            }catch(err){
+                console.log(err);
+                dispatch(authError(SIGNUP_FAILURE, "Register Error"));
+            }
         }
     }
 

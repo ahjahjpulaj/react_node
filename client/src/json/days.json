@@ -1,0 +1,9 @@
+[
+    {"id": 1, "dayToString": "Lunedì"},
+    {"id": 2, "dayToString": "Martedì"},
+    {"id": 3, "dayToString": "Mercoledì"},
+    {"id": 4, "dayToString": "Giovedì"},
+    {"id": 5, "dayToString": "Venerdì"},
+    {"id": 6, "dayToString": "Sabato"},
+    {"id": 0, "dayToString": "Domenica"}
+]

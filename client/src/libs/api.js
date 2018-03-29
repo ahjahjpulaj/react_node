@@ -20,12 +20,14 @@ const callFetch = async (url, options = {}) => {
             ...options,
             headers: new Headers(headers)
         });
-        const res = _checkStatus(response);
-        const data = await res.json();
-        console.log(data);
-        return data;
+        const data = await response.json();
+        console.log({...data, status: response.status, statusText: response.statusText});
+        return {...data, status: response.status, statusText: response.statusText} ;
     }catch(error){
+        console.log(error);
         // return {error};
+        // let error = {status : response.status, statusText: response.statusText};
+        // throw error;
         throw error;
     }
 }
@@ -43,15 +45,18 @@ api.login = async({username, password}) => {
     })
 }
 
-
-const _checkStatus = (response) => {
-    // raises an error in case response status is not a success
-    if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-        return response
-    } else {
-        let error = {status : response.status, statusText: response.statusText};
-        throw error;
-    }
+api.register = async({email, username, password, firstname, lastname}) => {
+    // Get a token from api server using the fetch api
+    return callFetch(`${API_URL}/register`, {
+        method: 'POST',
+        body: JSON.stringify({
+            email, 
+            username, 
+            password, 
+            firstname, 
+            lastname
+        })
+    })
 }
 
 const loggedIn = () => {

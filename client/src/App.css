@@ -1,15 +1,14 @@
 .App {
-  text-align: center;
+  background-color: #36465d;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+  /* animation: App-logo-spin infinite 20s linear; */
   height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: transparent;
   padding: 20px;
   color: white;
 }
@@ -20,6 +19,33 @@
 
 .App-intro {
   font-size: large;
+}
+
+.App-body {
+    background-color: transparent;
+    padding: 20px;
+}
+
+.App-sidenav {
+    padding: 20px;
+    color: white;
+}
+
+.App-sidenav a{
+    color: white;
+    padding: 5px;
+}
+
+.App-sidenav a:hover{
+    color: white;
+    text-decoration: underline;
+    padding: 5px;
+    /* font-size */
+}
+
+.App-sidenav i{
+    vertical-align: middle;
+    padding: 5px;
 }
 
 @keyframes App-logo-spin {
@@ -40,18 +66,14 @@
     align-items: center;
 }
 
-.card{
-    background-color: #fff;
-    border-radius: 15px;
-    padding: 0.8rem;
-}
 
-.card > form{
-    display: flex;
+.center form{
+    display: grid;
     flex-direction: column;
 }
 
-.card h1{
+.center h1{
+    color: #ffffff;
     text-align: center;
     margin-top: 0;
     margin-bottom: 10px;
@@ -65,41 +87,252 @@
     width: 16rem;
     border: 1px solid grey;
 }
-
-.form-item-error{
-    font-family: 'Raleway', sans-serif;
-    padding: 5px;
-    margin-bottom: 2rem;
-    height: 30px;
-    width: 16rem;
+.form-control.error{
     border: 1px solid red;
+    top:0;
+}
+.mb-30.input-group .form-control{
+    margin-bottom: 30px;
 }
 
 .form-submit{
     font-family: 'Raleway', sans-serif;
     height: 35px;
     color: #fff;
-    background-color: #2f3d51;
+    background-color: #529ecc;
     border: none;
     letter-spacing: 0.2rem;
     transition: 0.3s opacity ease;
     cursor: pointer;
 }
-.form-submit:hover{
+.form-submit:disabled{
    opacity: 0.6;
+   cursor: default;
 }
 
 .register-button{
     font-family: 'Raleway', sans-serif;
     height: 35px;
-    color: #2f3d51;
+    color: #fff;
     border: none;
     letter-spacing: 0.2rem;
     transition: 0.3s opacity ease;
     cursor: pointer;
 }
 
-.register-container{
+.register-container {
     padding-top: 20px;
     margin: 0 auto;
+}
+
+.anchor {
+    color: #afb5be;
+}
+
+.anchor :visited {
+    color: #afb5be;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    bottom: 8px;
+}
+
+.w-p {
+    color: #fff;
+    margin: 10px 0px 5px 0px;
+}
+
+.form-footer-container {
+    position: relative;
+    display: grid;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.margin-bottom-30{
+    margin-bottom: 30px;
+}
+
+
+/**
+    CALENDAR 
+**/
+
+.button-calendar{
+    height: 40px;
+    margin:2px;
+}
+
+.button-calendar i{
+    vertical-align: middle;
+}
+
+#next-button, 
+#week-button  {
+    position: absolute;
+    left:2px;
+}
+#prev-button, 
+#month-button {
+    position: absolute;
+    right:2px;
+}
+
+.calendar-pagination-list{
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    width: 10%;
+    margin: 2px;
+}
+.calendar-pagination-list .day{
+    background-color: #e7eaee;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    /* padding: .375rem .75rem; */
+    padding-top:15%;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    height: 40px;
+    margin: 2px;
+    width: 100%;
+}
+
+.highlight.calendar-pagination-list{
+    transition: all .2s ease-in-out;
+    transform: scale(1.05);
+    color: #ffffff;
+}
+
+.highlight.calendar-pagination-list  .day {
+    background-color: #0080b2;
+}
+
+.calendar {
+    margin:auto;
+}
+
+.calendar-contents > .row{
+    margin: auto;
+    align-content: center;
+    display: table;
+    width: 100%;
+}
+.calendar {
+    margin: auto;
+}
+.calendar-row {
+    width: 100%;
+    margin: auto;
+}
+
+.calendar-card{
+    display: inline-block !important;
+    margin: 5px;
+    width: 12%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.calendar-pagination > .month {
+    color: #ffffff;
+    font-size: 22px;
+    text-align: center;
+}
+
+
+.highlight.card {
+    transition: all .2s ease-in-out;
+    transform: scale(1.08);
+    color: #0080b2
+}
+
+.day-disabled.card {
+    box-shadow: 0px 0px 5px 1px rgb(192, 192, 192);
+    color: rgb(192, 192, 192);
+    cursor: default;
+}
+.margin-10 {
+    margin: 5px;
+    width: 100px;
+}
+
+.card-button {
+    position : absolute;
+    bottom:10px;
+    right: 10px;
+}
+
+/**
+    CALENDAR 
+**/
+
+
+/*
+    MODAL
+*/
+.close-modal{
+    position: absolute;
+    right:5px;
+    top:5px;
+    color: #212529;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.modal-calendar {
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-calendar-content {
+    position:relative;
+    margin: 15% auto; 
+    width: 40%; 
+    height: 30%;
+}
+.modal-calendar-content .card{
+    transform: scale(1.00);
+}
+
+/*
+    CARD
+*/
+.piano-row{
+    margin: 30px 0px;
+}
+.btn-add-row{
+    color: #212529;
+    background-color: transparent;
+    border-color: #f8f9fa;
+}
+    /*
+    CARD
+*/
+/*
+    MODAL
+*/
+
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

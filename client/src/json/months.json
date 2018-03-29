@@ -1,0 +1,14 @@
+[
+    {"id": 1, "monthToString": "Gennaio"},
+    {"id": 2, "monthToString": "Febbraio"},
+    {"id": 3, "monthToString": "Marzo"},
+    {"id": 4, "monthToString": "Aprile"},
+    {"id": 5, "monthToString": "Maggio"},
+    {"id": 6, "monthToString": "Giugno"},
+    {"id": 7, "monthToString": "Luglio"},
+    {"id": 8, "monthToString": "Agosto"},
+    {"id": 9, "monthToString": "Settembre"},
+    {"id": 10, "monthToString": "Ottobre"},
+    {"id": 11, "monthToString": "Novembre"},
+    {"id": 12, "monthToString": "Dicembre"}
+]

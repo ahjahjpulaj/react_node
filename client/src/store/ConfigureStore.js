@@ -2,20 +2,28 @@ import { createStore, applyMiddleware , compose} from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
-
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const configureStore = () => {
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['auth'],
+  }
 
-    const middlewares = [thunk, logger];
-  
-    const store = createStore(
-        rootReducer,
-        composeEnhancers(applyMiddleware(...middlewares)),
-    );
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+const middlewares = composeEnhancers(applyMiddleware(thunk, logger));
+// const middlewares = [thunk, logger];
 
-    return store;
-};
+// const configureStore = () => {
+//     const store = createStore(persistedReducer, middlewares);
+//     let persistor = persistStore(store)
 
-export default configureStore;
+//     return { store, persistor };
+// };
+export const store = createStore(persistedReducer, middlewares);
+export const persistor = persistStore(store);
+
+// export default configureStore;
