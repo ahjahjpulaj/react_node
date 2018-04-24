@@ -1,5 +1,4 @@
 import { API_URL } from '../config'
-// const API_URL = 'http://localhost:8080';
 
 const callFetch = async (url, options = {}) => {
     const headers = {
@@ -35,7 +34,7 @@ const callFetch = async (url, options = {}) => {
 const api = {};
 
 api.login = async({username, password}) => {
-    // Get a token from api server using the fetch api
+
     return callFetch(`${API_URL}/login`, {
         method: 'POST',
         body: JSON.stringify({
@@ -45,8 +44,15 @@ api.login = async({username, password}) => {
     })
 }
 
+api.loginWithGoogle = async() => {
+
+    return callFetch(`${API_URL}/auth/google`, {
+        method: 'GET',
+    })
+}
+
 api.register = async({email, username, password, firstname, lastname}) => {
-    // Get a token from api server using the fetch api
+    
     return callFetch(`${API_URL}/register`, {
         method: 'POST',
         body: JSON.stringify({
@@ -55,6 +61,28 @@ api.register = async({email, username, password, firstname, lastname}) => {
             password, 
             firstname, 
             lastname
+        })
+    })
+}
+
+api.orari = async({username, week}) => {
+    console.log(week);
+    return callFetch(`${API_URL}/orari`, {
+        method: 'POST',
+        body: JSON.stringify({
+            username,
+            week,
+        })
+    })
+}
+
+api.timesheet = async({username, week}) => {
+    
+    return callFetch(`${API_URL}/timesheet`, {
+        method: 'POST',
+        body: JSON.stringify({
+            username,
+            week,
         })
     })
 }

@@ -3,17 +3,24 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { 
-    login
+    login,
+    googleAuth,
 } from '../../actions/auth';
+
+import { 
+    setWeek,
+} from '../../actions/calendar';
 
 import InputGroup from '../main/InputGroup';
 import logo from '../../logo.png';
+import moment from 'moment';
 
 class Login extends React.Component {
     constructor(props){
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleGoogleAuth = this.handleGoogleAuth.bind(this);
         this.state = {};
     }
     render() {
@@ -47,6 +54,9 @@ class Login extends React.Component {
                     <div className="register-container">
                         <Link to="/register" className="register-button">Register</Link>
                     </div>
+                    <div className="google-auth-container">
+                    <a href="http://localhost:3000/auth/google"  className="btn form-submit">Accedi con Google</a>
+                    </div>
                 </div>
             </div>
         );
@@ -59,6 +69,10 @@ class Login extends React.Component {
     handleFormSubmit(e){
         e.preventDefault();
         this.props.login({username : this.state.username ,password: this.state.password}, this.props.history);
+        this.props.setWeek({username : this.state.username , week : moment().isoWeek()});
+    }
+    handleGoogleAuth(){
+        this.props.googleAuth(this.props.history);
     }
 }
 
@@ -72,6 +86,8 @@ const mapStateToProps = (state) => ({
   
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     login,
+    googleAuth,
+    setWeek,
 }, dispatch);
   
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

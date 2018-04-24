@@ -26,7 +26,22 @@ class Card extends React.Component {
     this.state = {edit : false};
   }
   render() {
-    // let orari = [9:00]
+    let orari = [];
+    if(this.props.day.orari){
+      orari = this.props.day.orari
+    }
+    console.log(this.props.day.orari);
+    // let orari = ["09:00", "12:00", "13:00", "14:00", "14:30", "18:00"];
+    let orariNormalized = orari.reduce(function(result, value, index, array) {
+      if (index % 2 === 0)
+        result.push(array.slice(index, index + 2));
+      return result;
+    }, []);
+    let orariRow = orariNormalized.map( (row, index) => {
+      return(
+        <OrariRow edit={this.state.edit} row = {row} index = {index} onChange = { (e) => this.handleChange(e) }/>
+      )
+    })
     return (
       <div className={ GenericFunctions.isSame(this.props.day, this.props.currentDate) ? "card margin-bottom-30 highlight" : "card margin-bottom-30"} 
       id={moment(this.props.day).get('date') + "-" + moment(this.props.day).get('month')}
@@ -34,54 +49,9 @@ class Card extends React.Component {
           <h5 className="card-header">{moment(this.props.day).get('date') + "  " + GenericFunctions.getMonth(moment(this.props.day).get('month')+1)+ "  " + (moment(this.props.day).get('year'))}</h5>
           {/* CARD BODY */}
           <div className="card-body">
-          <OrariRow edit={this.state.edit} onChange = { (e) => this.handleChange(e) }/>
           { /*ROW ORARI*/ }
-            {/* 
-              <div className="row">
-              <div className="col-2">
-                <p>Ingresso</p>
-              </div>
-              <div className="col-4">
-                <IfElse 
-                  condition = {this.state.edit} 
-                  ifComponent = {
-                    <InputGroup 
-                    fieldname = {'in'} 
-                    placeholder = { 'Ingresso' } 
-                    type = { 'time' }
-                    value = { '' }
-                    onChange = { (e) => this.handleChange(e) } 
-                    onBlur = { ()=> {} } 
-                    validate = {false} 
-                    error = {""}
-                    />
-                  }
-                  elseComponent = {" Orario test ingresso "}>
-                </IfElse>
-                </div>
-                <div className="col-2">
-                  <p>Uscita</p>
-                </div>
-                <div className="col-4">
-                <IfElse 
-                  condition = {this.state.edit} 
-                  ifComponent = {
-                    <InputGroup 
-                      fieldname = {'out'} 
-                      placeholder = { 'Uscita' } 
-                      type = { 'time' }
-                      value = { '' }
-                      onChange = { (e) => this.handleChange(e) } 
-                      onBlur = { ()=> {} } 
-                      validate = {false} 
-                      error = {""}
-                  />
-                  }
-                  elseComponent = {" Orario test uscita "}>
-                </IfElse>
-                </div>
-              </div>
-              */}
+          { orariRow }
+          {/* <OrariRow edit={this.state.edit} onChange = { (e) => this.handleChange(e) }/> */}
           { /*ROW ORARI*/ }
 
           {/* PIANO SECTION */}
@@ -160,6 +130,7 @@ class Card extends React.Component {
 
   saveCard(e){
     e.stopPropagation();
+    console.log(this.state);
     this.setState( { edit : false } );
   }
   
@@ -168,7 +139,6 @@ class Card extends React.Component {
   }
 
   handleChange(e){
-    console.log(this.state);
     this.setState( ...this.state, { [e.target.name] : e.target.value });
   }
 }

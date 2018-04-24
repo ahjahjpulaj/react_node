@@ -8,7 +8,6 @@ class OrariRow extends React.Component {
 
     }
     render() {
-        const { edit, onChange } = this.props;
         return (
             <div className="row">
               <div className="col-2">
@@ -22,14 +21,14 @@ class OrariRow extends React.Component {
                     fieldname = {'in'} 
                     placeholder = { 'Ingresso' } 
                     type = { 'time' }
-                    value = { '' }
-                    onChange = { this.props.handleChange } 
+                    defaultValue = { this.props.row[0] }
+                    onChange = { this.props.onChange } 
                     onBlur = { ()=> {} } 
                     validate = {false} 
                     error = {""}
                     />
                   }
-                  elseComponent = {" Orario test ingresso "}>
+                  elseComponent = { <p>{this.props.row[0]}</p> }>
                 </IfElse>
                 </div>
                 <div className="col-2">
@@ -43,14 +42,14 @@ class OrariRow extends React.Component {
                       fieldname = {'out'} 
                       placeholder = { 'Uscita' } 
                       type = { 'time' }
-                      value = { '' }
-                      onChange = { this.props.handleChange } 
+                      defaultValue = { this.props.row[1] }
+                      onChange = { this.props.onChange } 
                       onBlur = { ()=> {} } 
                       validate = {false} 
                       error = {""}
                   />
                   }
-                  elseComponent = {" Orario test uscita "}>
+                  elseComponent = { <p>{this.props.row[1]}</p> }>
                 </IfElse>
                 </div>
               </div>

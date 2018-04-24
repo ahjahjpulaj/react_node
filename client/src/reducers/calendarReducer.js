@@ -36,6 +36,7 @@ export default function(state = InitialState, action) {
         }
         
       break;
+      
       default:
       return state;
     };

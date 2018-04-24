@@ -4,6 +4,7 @@ import {
     SIGNIN_FAILURE,
     REGISTERED_USER,
     SIGNUP_FAILURE,
+    SET_WEEK,
 } from '../actions/auth';
 
 export default function(state = {}, action) {
@@ -13,7 +14,7 @@ export default function(state = {}, action) {
         newState = { ...state, error: { signin: action.payload } };
         break;
         case AUTH_USER:
-        newState = { ...state, authenticated: true, user: action.data, history: action.history, error: {} };
+        newState = { ...state, authenticated: true, user: action.data, error: {} };
         break;
         case UNAUTH_USER:
         newState = { ...state, authenticated: false, error: {} };
@@ -23,6 +24,9 @@ export default function(state = {}, action) {
         break;
         case REGISTERED_USER:
         newState = { ...state};
+        break;
+        case SET_WEEK:
+        newState = { ...state, currentWeek: action.value};
         break;
         default:
         return state;

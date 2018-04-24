@@ -16,11 +16,6 @@ import {
   logout
 } from './actions/auth';
 
-import { 
-  GET_DATE,
-  GET_CURRENT_DATE,
-} from './actions/calendar';
-
 
 import logo from './logo.png';
 
@@ -28,16 +23,23 @@ import './App.css';
 
 import moment from "moment";
 
-
 class App extends Component {
   render() {
     let contents = "";
     if(this.props.view === "week"){
-      contents = this.props.date.map(day => {
-        return(
-          <Card day = { day }/>
-        )
-      })
+      if(this.props.currentWeek){
+        contents = this.props.currentWeek.map(day => {
+          return(
+            <Card day = { day } />
+          )
+        })
+      }else{
+        contents = this.props.date.map(day => {
+          return(
+            <Card day = { day } />
+          )
+        })
+      }
     }else if (this.props.view === "month"){
       contents = <Calendar days = {this.props.date}/>  
     }
@@ -144,12 +146,13 @@ const mapStateToProps = (state) => ({
   date : state.calendar.date,
   view : state.calendar.view,
   currentDate : state.calendar.currentDate,
+  currentWeek : state.auth.currentWeek
 });
 
 
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  logout
+  logout,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
